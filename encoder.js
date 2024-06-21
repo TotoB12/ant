@@ -17,17 +17,19 @@ async function createAntFile(filename, width, height, compressedData) {
     await fs.promises.writeFile(filename, content);
 }
 
-async function encodePngToAnt(pngFilePath, antFilePath) {
+async function encodeImageToAnt(inputFilePath, antFilePath) {
     try {
-        console.log(`Reading PNG file: ${pngFilePath}`);
+        console.log(`Reading image file: ${inputFilePath}`);
         
-        // Get image dimensions
-        const metadata = await sharp(pngFilePath).metadata();
+        // Get image dimensions and format
+        const image = sharp(inputFilePath);
+        const metadata = await image.metadata();
         console.log(`Image dimensions: ${metadata.width}x${metadata.height}`);
+        console.log(`Image format: ${metadata.format}`);
 
-        // Convert PNG to WebP with high compression
+        // Convert image to WebP with high compression
         console.log('Converting to WebP...');
-        const webpBuffer = await sharp(pngFilePath)
+        const webpBuffer = await image
             .webp({ quality: 90, lossless: false, effort: 6 })
             .toBuffer();
 
@@ -46,13 +48,13 @@ async function encodePngToAnt(pngFilePath, antFilePath) {
         console.log(`Compressed data size: ${brotliCompressed.length} bytes`);
 
         await createAntFile(antFilePath, metadata.width, metadata.height, brotliCompressed);
-        console.log(`Encoded ${pngFilePath} to ${antFilePath}`);
+        console.log(`Encoded ${inputFilePath} to ${antFilePath}`);
     } catch (error) {
-        console.error('Error encoding PNG to ANT:', error);
+        console.error('Error encoding image to ANT:', error);
     }
 }
 
 // Example usage
-const pngFilePath = 'input.png';
+const inputFilePath = '132.jpg'; // Change to any supported image format
 const antFilePath = 'output_optimized.ant';
-encodePngToAnt(pngFilePath, antFilePath);
+encodeImageToAnt(inputFilePath, antFilePath);
