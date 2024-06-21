@@ -55,6 +55,6 @@ async function encodeImageToAnt(inputFilePath, antFilePath) {
 }
 
 // Example usage
-const inputFilePath = '132.jpg'; // Change to any supported image format
+const inputFilePath = '132.png'; // Change to any supported image format
 const antFilePath = 'output_optimized.ant';
 encodeImageToAnt(inputFilePath, antFilePath);

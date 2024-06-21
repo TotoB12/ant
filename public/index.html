@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANT Image Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>ANT Image Converter</h1>
+    </header>
+    <main>
+        <section id="uploadSection" class="upload-section">
+            <div id="dropZone" class="drop-zone">
+                <p id="dropZoneText">Drag & drop your file here or click to select</p>
+                <input type="file" id="fileInput" name="file" class="file-input" required>
+            </div>
+            <div id="fileInfo" class="file-info" style="display: none;">
+                <p id="selectedFileText"></p>
+                <button id="cancelButton" class="cancel-button">Cancel</button>
+            </div>
+            <div id="previewPanel" class="preview-panel" style="display: none;">
+                <h2>Preview</h2>
+                <canvas id="previewCanvas" style="display: none;"></canvas>
+                <img id="imagePreview" class="image-preview" alt="Image Preview" style="display: none;" />
+            </div>
+        </section>
+        <section id="controlsSection" class="controls-section">
+            <form id="uploadForm" enctype="multipart/form-data">
+                <label for="formatSelect">Choose output format:</label>
+                <select id="formatSelect" name="format">
+                    <option value="ant">ANT</option>
+                    <option value="png">PNG</option>
+                    <option value="jpg">JPG</option>
+                </select>
+                <button type="submit">Convert</button>
+            </form>
+            <div id="progressIndicator" class="progress-indicator">
+                <div id="progressBar" class="progress-bar"></div>
+            </div>
+            <div id="result">
+                <p>Converted file will appear here for download.</p>
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
